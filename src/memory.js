@@ -4,8 +4,8 @@ class MemoryGame {
     // add the rest of the class properties here
     this.pickedCards = [];
     this.pairsClicked = 0;
-    this.pairsGuessed= 0,
-    this.shuffleCards();
+    this.pairsGuessed= 0;
+   // this.shuffleCards();
   }
 
   shuffleCards() {
@@ -29,7 +29,7 @@ class MemoryGame {
     // ... write your code here
     console.log("checkifpairllamado");
     this.pairsClicked += 1;
-    if (card1=== card2){
+    if (card1.getAttribute("data-card-name")=== card2.getAttribute("data-card-name")){
       this.pairsGuessed +=1;
       return true;
     }else {
