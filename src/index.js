@@ -28,6 +28,7 @@ const cards = [
 const memoryGame = new MemoryGame(cards);
 
 window.addEventListener('load', (event) => {
+ 
   let html = '';
   memoryGame.cards.forEach((pic) => {
     html += `
@@ -37,7 +38,6 @@ window.addEventListener('load', (event) => {
       </div>
     `;
   });
-
   // Add all the divs to the HTML
   document.querySelector('#memory-board').innerHTML = html;
 
@@ -55,25 +55,41 @@ window.addEventListener('load', (event) => {
       memoryGame.pickedCards.push(card);
       
 
-
       if (memoryGame.pickedCards.length === 2){
         console.log("picked cards: ",memoryGame.pickedCards);
         let card1 = memoryGame.pickedCards[0];
         let card2 = memoryGame.pickedCards[1];
 
-        if (!memoryGame.checkIfPair(card1,card2)){
+        let card1Name = card1.getAttribute("data-card-name");
+        let card2Name = card2.getAttribute("data-card-name");
+
+        if (!memoryGame.checkIfPair(card1Name,card2Name)){
            
           
-          console.log(`${card1.getAttribute("data-card-name")} and ${card2.getAttribute("data-card-name")} are not pairs`);
+          console.log(`${card1Name} and ${card2Name} are not pairs`);
           setTimeout(()=>{
             card2.className = "card";
             card1.className = "card" ;
-        },1000)
+          },1000)
 
-        memoryGame.pickedCards=[];
          
-      }
+        }else{
+          confetti();       
+        }
+        memoryGame.pickedCards=[];
 
-  }});
+        if (memoryGame.checkIfFinished()){
+          const win = document.createElement("h1");
+          win.innerText = "YOU WIN!";
+
+          //a partir d'aqui no va
+          const title = document.getElementById("gameTitle");
+          title.appendChild(win);
+          const body = document.getElementsByTagName("html");
+
+          body.remove(html)
+        } 
+      }
+});
   });
 });

@@ -13,7 +13,7 @@ class MemoryGame {
     if (!this.cards){
       return undefined;
     }
-    for (let i = 0; i < this.cards.length; i++){
+    /*for (let i = 0; i < this.cards.length; i++){
       let randomCard = this.cards[Math.round(Math.random * this.cards.length)]
       let indexOfRandom = this.cards.indexOf(randomCard);
     
@@ -21,7 +21,19 @@ class MemoryGame {
       this.cards[Math.round(Math.random * this.cards.length)] = randomCard;
       //eliminem d'on estava el valor de randomCard pk no estigui dos cops
       this.cards.slice(indexOfRandom,1)
+    }*/
+    let len = this.cards.length;
+    while (len > 0)
+    {
+      len--;
+      let temp = this.cards[len];
+      let rdmInd = Math.floor(Math.random() * len);
+      this.cards[len] = this.cards[rdmInd];//treiem una carta random i la fiquem al final (D'aquest loop)
+      this.cards[rdmInd] = temp;//agafem la que estava al final i la fiquem al lloc on era la random
     }
+  
+
+
     return this.cards;
   }
 
@@ -29,7 +41,7 @@ class MemoryGame {
     // ... write your code here
     console.log("checkifpairllamado");
     this.pairsClicked += 1;
-    if (card1.getAttribute("data-card-name")=== card2.getAttribute("data-card-name")){
+    if (card1=== card2){
       this.pairsGuessed +=1;
       return true;
     }else {
